@@ -1,0 +1,9 @@
+#!/bin/bash
+
+while true
+do
+  echo -e "\e[33m\e[4m$(date)\e[0m\e[39m"
+  curl localhost:8080/ -m 4 --trace /dev/stdout;
+  sleep 2
+  echo -en "\n\n"
+done
