@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -euo pipefail
+
+cd "$(dirname "$0")"
+
+if ! [[ -p backpipe ]]; then
+  mknod backpipe p
+fi
+
+netcat -lp 8080 0<backpipe | tee -a ../log/inflow | wren ../server.wren | tee -a ../log/outflow 1>backpipe
