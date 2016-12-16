@@ -27,13 +27,15 @@ class Status {
   } }
   statusCode { _statusCode }
 
-  construct new(statusCode) {}
+  construct new(statusCode) {
+    _statusCode = statusCode
+  }
 
   print() {
     if (this.codes.containsKey(statusCode)) {
-      return statusCode + " " + this.codes[statusCode]
+      return statusCode + " " + this.codes[statusCode] + "\r\n"
     } else {
-      return "500 Internal Server Error"
+      return "500 Internal Server Error\r\n"
     }
   }
 }

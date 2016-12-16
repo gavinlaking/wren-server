@@ -1,34 +1,34 @@
 import "io" for Stdin
+
+import "lib/Recto/Recto" for Recto
+
 import "request" for Request
 import "response" for Response
 import "status" for Status
-
-class Buffer {
-  buffer { _newBuffer }
-  buffer=(newBuffer) { }
-
-  construct new(newBuffer) {
-  }
-}
 
 class Server {
   buffer { "" }
   buffer=(newBuffer) { buffer = buffer + newBuffer }
 
   construct new() {
-    while(true) {
-      while(this.buffer.count <= 1024) {
-        var line = Stdin.readLine()
-        if (line.count <= 1024) {
-          this.buffer = buffer + line
-        } else {
+    var crlf           = 0
+    var requestHeaders = []
+    var str            = Recto.new()
 
-        }
-      }
-      System.print(buffer)
-
-      respond()
+    while(crlf < 3) {
+      var line = Stdin.readLine()
+      requestHeaders.add(line)
+      if (line.contains("\r")) { crlf = crlf + 1 }
     }
+
+    var requestLine = requestHeaders.removeAt(0)
+
+    var request            = str.split(requestLine, " ")
+    var requestMethod      = request[0]
+    var requestUri         = request[1]
+    var requestHTTPVersion = request[2]
+
+    respond()
   }
 
   respond() {
