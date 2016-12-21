@@ -1,19 +1,14 @@
 import "status" for Status
 
 class Response {
-  statusCode { _statusCode }
-  messageBody { _messageBody }
-  serverName { "wren-server" }
-  httpVersion { "HTTP/1.0" }
-
   construct new(statusCode, messageBody) {
     _statusCode = statusCode
     _messageBody = messageBody
   }
 
   body() {
-    if (messageBody) {
-      return messageBody
+    if (_messageBody) {
+      return _messageBody
     } else {
       return ""
     }
@@ -24,24 +19,19 @@ class Response {
   }
 
   headers() {
-    var status  = Status.new(statusCode)
-    var date    = "Date: "           + "\r\n"
-    var expires = "Expires: "        + "\r\n"
-    var server  = "Server: "         + serverName + "\r\n"
-    var type    = "Content-Type: "   + "text/plain\r\n"
-    var length  = "Content-Length: " + bodySize() + "\r\n"
-
-    return httpVersion +
-           status.print() +
-           date +
-           expires +
-           server +
-           type +
-           length
+    return statusLine + date + expires + server + type + length
   }
 
   write() {
     System.print(headers())
     System.print(body())
   }
+
+  statusLine { "HTTP/1.0 " + Status.new(_statusCode).print() }
+  date       { "Date: \r\n" }
+  expires    { "Expires: \r\n" }
+  server     { "Server: wren-server\r\n" }
+  type       { "Content-Type: text/plain\r\n" }
+  length     { "Content-Length: " + bodySize() + "\r\n" }
 }
+
