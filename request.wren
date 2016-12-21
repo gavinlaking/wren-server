@@ -22,11 +22,11 @@ class Request {
     }
 
     var requestLine = _requestHeaders.removeAt(0)
-    var request     = str.split(requestLine, " ")
+    var requestAtoms = str.split(requestLine, " ")
 
-    _requestMethod = request[0]
-    _requestUri = request[1]
-    _requestHTTPVersion = request[2]
+    _requestMethod = requestAtoms[0]
+    _requestUri = requestAtoms[1]
+    _requestHTTPVersion = requestAtoms[2]
 
     // TODO: Set the HTTP status code for the response;
     // e.g. 200 if we can serve the request.
