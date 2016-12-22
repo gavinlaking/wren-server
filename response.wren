@@ -14,8 +14,10 @@ class Response {
     }
   }
 
+  // returns the size of the body in bytes plus 1 byte (the newline
+  // character which `System.print` appends)
   bodySize() {
-    return body().count.toString
+    return (body().count + 1).toString
   }
 
   headers() {
