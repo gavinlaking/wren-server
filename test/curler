@@ -7,4 +7,5 @@ do
   sleep 2
   curl localhost:8080/test -m 4 --trace /dev/stdout;
   echo -en "\n\n"
+  sleep 5
 done
