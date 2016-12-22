@@ -8,20 +8,19 @@ import "response" for Response
 
 class StatusResource {
   construct index() {
-    System.print("StatusResource called.")
+    return "Hello World!"
   }
 }
 
 class TestResource {
   construct index() {
-    System.print("TestResource called.")
+    return "TestResource.index() called."
   }
 }
 
 class Router {
   construct new() {
     var request = Request.new()
-    var response = Response.new(request.statusCode, request.messageBody)
 
     var routesFile = "../routes.json"
     var requestStr = request.method + " " + request.uri
@@ -29,18 +28,36 @@ class Router {
     if (File.exists(routesFile)) {
       var file = File.read(routesFile)
       var routes = JSON.parse(file)
+      var statusCode
+      var messageBody
 
       for (route in routes) {
         if (requestStr == route["request"]) {
-          System.print("Route matches: " + requestStr)
+          var function = Meta.compileExpression(route["resource"])
+          if (function == null) {
+            statusCode = "500"
+            messageBody = "Invalid resource: '" + route["resource"] + "'"
+          }
 
-          Meta.eval(route["resource"])
+          var fiber = Fiber.new(function)
+          var result = fiber.try()
+          if (fiber.error == null) {
+            statusCode = "200"
+            messageBody = result
+          } else {
+            statusCode = "500"
+            messageBody = fiber.error.toString
+          }
 
-          response.write()
+          break
+
         } else {
-          // ignore non-matching route
+          // ignore non-matching routes
         }
       }
+
+      var response = Response.new(statusCode, messageBody)
+      response.write()
     }
   }
 }
