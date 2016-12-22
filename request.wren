@@ -8,8 +8,6 @@ class Request {
   queryString { _requestQueryString }
   requestHTTPVersion { _requestHTTPVersion }
   requestHeaders { _requestHeaders }
-  statusCode { _statusCode }
-  messageBody { _messageBody }
 
   construct new() {
     var crlf = 0
@@ -34,10 +32,5 @@ class Request {
     if (requestUriAtoms.count > 1) {
       _requestQueryString = requestUriAtoms[1]
     }
-
-    // TODO: Set the HTTP status code for the response;
-    // e.g. 200 if we can serve the request.
-    _statusCode = "200"
-    _messageBody = "Hello World!"
   }
 }
