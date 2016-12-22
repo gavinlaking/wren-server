@@ -16,6 +16,26 @@ class TestResource {
   construct index() {
     return "TestResource.index() called."
   }
+
+  construct create() {
+    return "TestResource.create() called."
+  }
+
+  construct new() {
+    return "TestResource.new() called."
+  }
+
+  construct edit() {
+    return "TestResource.edit() called."
+  }
+
+  construct update() {
+    return "TestResource.update() called."
+  }
+
+  construct destroy() {
+    return "TestResource.destroy() called."
+  }
 }
 
 class Router {

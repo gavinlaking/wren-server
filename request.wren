@@ -31,6 +31,8 @@ class Request {
 
     if (requestUriAtoms.count > 1) {
       _requestQueryString = requestUriAtoms[1]
+    } else {
+      _requestQueryString = ""
     }
   }
 }

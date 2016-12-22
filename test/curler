@@ -3,9 +3,37 @@
 while true
 do
   echo -e "\e[33m\e[4m$(date)\e[0m\e[39m"
-  curl localhost:8080/ -m 4 --trace /dev/stdout;
+
+  # GET /
+  # curl localhost:8080/ -m 4 --trace /dev/stdout;
+  # sleep 2
+
+  # GET /test
+  # curl localhost:8080/test -m 4 --trace /dev/stdout;
+  # sleep 2
+
+  # POST /test
+
+  # Fields
+  curl --data "param1=value1&param2=value2" localhost:8080/test -m 4 --trace /dev/stdout;
+
+  # Multipart
+  # curl --form "fileupload=@my-file.txt" localhost:8080/test -m 4 --trace /dev/stdout;
+
+  # Multipart and fields
+  # curl --form "fileupload=@file_upload.txt;filename=sanitized_filename.txt" \
+  #      --form param1=value1 --form param2=value2 \
+  #      localhost:8080/test -m 4 --trace /dev/stdout;
   sleep 2
-  curl localhost:8080/test -m 4 --trace /dev/stdout;
+
+  # GET /test/new
+
+  # GET /test/1/edit
+
+  # PATCH /test/1
+
+  # DELETE /test/1
+
   echo -en "\n\n"
   sleep 5
 done
