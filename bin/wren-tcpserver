@@ -5,14 +5,3 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 tcpserver -v -RHl0 127.0.0.1 8080 wren ../server.wren
-
-# if ! [[ -p backpipe ]]; then
-#   mknod backpipe p
-# fi
-
-# while true; do
-#   netcat -lp 8080       0<backpipe |
-#   tee -a ../log/inflow             |
-#   wren ../server.wren              |
-#   tee -a ../log/outflow 1>backpipe
-# done
