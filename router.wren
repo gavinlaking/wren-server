@@ -6,6 +6,18 @@ import "lib/wren-json/json" for JSON
 import "request" for Request
 import "response" for Response
 
+class StatusResource {
+  construct index() {
+    System.print("StatusResource called.")
+  }
+}
+
+class TestResource {
+  construct index() {
+    System.print("TestResource called.")
+  }
+}
+
 class Router {
   construct new() {
     var request = Request.new()
