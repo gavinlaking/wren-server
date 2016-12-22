@@ -1,0 +1,30 @@
+[
+  {
+    "request": "GET /",
+    "resource": "StatusResource.index"
+  },
+  {
+    "request": "GET /test",
+    "resource": "TestResource.index"
+  },
+  {
+    "request": "POST /test",
+    "resource": "TestResource.create"
+  },
+  {
+    "request": "GET /test/new",
+    "resource": "TestResource.new"
+  },
+  {
+    "request": "GET /test/1/edit",
+    "resource": "TestResource.edit"
+  },
+  {
+    "request": "PATCH /test/1",
+    "resource": "TestResource.update"
+  },
+  {
+    "request": "DELETE /test/1",
+    "resource": "TestResource.destroy"
+  },
+]

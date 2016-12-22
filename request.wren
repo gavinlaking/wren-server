@@ -3,8 +3,9 @@ import "io" for Stdin
 import "lib/Recto/Recto" for Recto
 
 class Request {
-  requestMethod { _requestMethod }
-  requestUri { _requestUri }
+  method { _requestMethod }
+  uri { _requestUri }
+  queryString { _requestQueryString }
   requestHTTPVersion { _requestHTTPVersion }
   requestHeaders { _requestHeaders }
   statusCode { _statusCode }
@@ -25,17 +26,18 @@ class Request {
     var requestAtoms = str.split(requestLine, " ")
 
     _requestMethod = requestAtoms[0]
-    _requestUri = requestAtoms[1]
     _requestHTTPVersion = requestAtoms[2]
+
+    var requestUriAtoms = str.split(requestAtoms[1], "?")
+    _requestUri = requestUriAtoms[0]
+
+    if (requestUriAtoms.count > 1) {
+      _requestQueryString = requestUriAtoms[1]
+    }
 
     // TODO: Set the HTTP status code for the response;
     // e.g. 200 if we can serve the request.
     _statusCode = "200"
     _messageBody = "Hello World!"
   }
-
-  delete() {}
-  get() {}
-  patch() {}
-  post() {}
 }

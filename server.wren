@@ -1,14 +1,9 @@
-import "request" for Request
-import "response" for Response
-import "status" for Status
+import "router" for Router
 
 class Server {
   construct new() {
-    var request = Request.new()
-
-    var response = Response.new(request.statusCode, request.messageBody)
-    response.write()
+    Router.new()
   }
 }
 
-var server = Server.new()
+Server.new()
