@@ -1,4 +1,6 @@
 import "io" for File, Directory
+import "meta" for Meta
+
 import "lib/wren-json/json" for JSON
 
 import "request" for Request
@@ -19,6 +21,9 @@ class Router {
       for (route in routes) {
         if (requestStr == route["request"]) {
           System.print("Route matches: " + requestStr)
+
+          Meta.eval(route["resource"])
+
           response.write()
         } else {
           // ignore non-matching route
