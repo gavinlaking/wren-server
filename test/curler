@@ -15,16 +15,22 @@ do
   # POST /test
 
   # Fields
-  curl --data "param1=value1&param2=value2" localhost:8080/test -m 4 --trace /dev/stdout;
+  curl --data "param1=value1&param2=value2" localhost:8080/test -m 4 \
+       --trace /dev/stdout;
+  sleep 2
 
   # Multipart
-  # curl --form "fileupload=@my-file.txt" localhost:8080/test -m 4 --trace /dev/stdout;
+  # curl --form "fileupload=@my-file.txt" localhost:8080/test -m 4 \
+  #      --trace /dev/stdout;
+  # sleep 2
 
   # Multipart and fields
   # curl --form "fileupload=@file_upload.txt;filename=sanitized_filename.txt" \
-  #      --form param1=value1 --form param2=value2 \
-  #      localhost:8080/test -m 4 --trace /dev/stdout;
-  sleep 2
+  #      --form param1=value1 \
+  #      --form param2=value2 \
+  #      localhost:8080/test -m 4 \
+  #      --trace /dev/stdout;
+  # sleep 2
 
   # GET /test/new
 
@@ -35,5 +41,4 @@ do
   # DELETE /test/1
 
   echo -en "\n\n"
-  sleep 5
 done
