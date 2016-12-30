@@ -25,15 +25,14 @@ class Status {
     "503": "Service Unavailable",
     "504": "Gateway Time-out"
   } }
-  statusCode { _statusCode }
 
   construct new(statusCode) {
     _statusCode = statusCode
   }
 
   print() {
-    if (this.codes.containsKey(statusCode)) {
-      return statusCode + " " + this.codes[statusCode] + "\r\n"
+    if (this.codes.containsKey(_statusCode)) {
+      return _statusCode + " " + this.codes[_statusCode] + "\r\n"
     } else {
       return "500 Internal Server Error\r\n"
     }

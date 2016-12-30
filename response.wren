@@ -14,12 +14,14 @@ class Response {
     }
   }
 
+  // returns the size of the body in bytes plus 1 byte (the newline
+  // character which `System.print` appends)
   bodySize() {
-    return body().count.toString
+    return (body().count + 1).toString
   }
 
   headers() {
-    return statusLine + date + expires + server + type + length
+    return status + date + expires + server + type + length
   }
 
   write() {
@@ -27,11 +29,11 @@ class Response {
     System.print(body())
   }
 
-  statusLine { "HTTP/1.0 " + Status.new(_statusCode).print() }
-  date       { "Date: \r\n" }
-  expires    { "Expires: \r\n" }
-  server     { "Server: wren-server\r\n" }
-  type       { "Content-Type: text/plain\r\n" }
-  length     { "Content-Length: " + bodySize() + "\r\n" }
+  status  { "HTTP/1.0 " + Status.new(_statusCode).print() }
+  date    { "Date: \r\n" }
+  expires { "Expires: \r\n" }
+  server  { "Server: wren-server\r\n" }
+  type    { "Content-Type: text/plain\r\n" }
+  length  { "Content-Length: " + bodySize() + "\r\n" }
 }
 

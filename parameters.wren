@@ -1,0 +1,5 @@
+class Parameters {
+  construct new() {
+
+  }
+}

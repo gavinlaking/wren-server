@@ -3,11 +3,12 @@ import "io" for Stdin
 import "lib/Recto/Recto" for Recto
 
 class Request {
-  method { _requestMethod }
-  uri { _requestUri }
+  headers     { _requestHeaders }
+  httpVersion { _requestHTTPVersion }
+  method      { _requestMethod }
   queryString { _requestQueryString }
-  requestHTTPVersion { _requestHTTPVersion }
-  requestHeaders { _requestHeaders }
+  route       { method  + " " + uri }
+  uri         { _requestUri }
 
   construct new() {
     var crlf = 0
@@ -31,6 +32,8 @@ class Request {
 
     if (requestUriAtoms.count > 1) {
       _requestQueryString = requestUriAtoms[1]
+    } else {
+      _requestQueryString = ""
     }
   }
 }

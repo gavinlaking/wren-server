@@ -1,0 +1,3 @@
+#!/bin/bash
+
+siege http://localhost:8080 --concurrent=100 --reps=1000
