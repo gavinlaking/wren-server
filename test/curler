@@ -6,23 +6,22 @@ do
 
   # GET /
   # curl localhost:8080/ -m 4 --trace /dev/stdout;
-  # sleep 2
+
+  # GET /?param1=value1
+  curl localhost:8080/?param1=value1\&param2=value2 -m 4 --trace /dev/stdout;
 
   # GET /test
   # curl localhost:8080/test -m 4 --trace /dev/stdout;
-  # sleep 2
 
   # POST /test
 
   # Fields
-  curl --data "param1=value1&param2=value2" localhost:8080/test -m 4 \
-       --trace /dev/stdout;
-  sleep 2
+  # curl --data "param1=value1&param2=value2" localhost:8080/test -m 4 \
+  #      --trace /dev/stdout;
 
   # Multipart
   # curl --form "fileupload=@my-file.txt" localhost:8080/test -m 4 \
   #      --trace /dev/stdout;
-  # sleep 2
 
   # Multipart and fields
   # curl --form "fileupload=@file_upload.txt;filename=sanitized_filename.txt" \
@@ -30,7 +29,6 @@ do
   #      --form param2=value2 \
   #      localhost:8080/test -m 4 \
   #      --trace /dev/stdout;
-  # sleep 2
 
   # GET /test/new
 
@@ -41,4 +39,5 @@ do
   # DELETE /test/1
 
   echo -en "\n\n"
+  sleep 2
 done

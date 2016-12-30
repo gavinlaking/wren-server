@@ -2,6 +2,8 @@ import "io" for Stdin
 
 import "lib/Recto/Recto" for Recto
 
+import "parameters" for Parameters
+
 class Request {
   headers     { _requestHeaders }
   httpVersion { _requestHTTPVersion }
@@ -32,6 +34,10 @@ class Request {
 
     if (requestUriAtoms.count > 1) {
       _requestQueryString = requestUriAtoms[1]
+
+      var params = Parameters.new(queryString)
+      params.inspect()
+
     } else {
       _requestQueryString = ""
     }
