@@ -3,12 +3,12 @@ import "io" for Stdin
 import "lib/Recto/Recto" for Recto
 
 class Request {
-  method             { _requestMethod }
-  queryString        { _requestQueryString }
-  requestHeaders     { _requestHeaders }
-  requestHTTPVersion { _requestHTTPVersion }
-  route              { method  + " " + uri }
-  uri                { _requestUri }
+  headers     { _requestHeaders }
+  httpVersion { _requestHTTPVersion }
+  method      { _requestMethod }
+  queryString { _requestQueryString }
+  route       { method  + " " + uri }
+  uri         { _requestUri }
 
   construct new() {
     var crlf = 0
