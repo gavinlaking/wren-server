@@ -1,38 +1,38 @@
 import "io" for File, Directory
 import "meta" for Meta
 
-import "request" for Request
-import "response" for Response
-import "routes" for Routes
+import "./request" for Request
+import "./response" for Response
+import "./routes" for Routes
 
 class StatusResource {
-  construct index() {
+  static index() {
     return "Hello World!"
   }
 }
 
 class TestResource {
-  construct index() {
+  static index() {
     return "TestResource.index() called."
   }
 
-  construct create() {
+  static create() {
     return "TestResource.create() called."
   }
 
-  construct new() {
-    return "TestResource.new() called."
+  static newForm() {
+    return "TestResource.newForm() called."
   }
 
-  construct edit() {
+  static edit() {
     return "TestResource.edit() called."
   }
 
-  construct update() {
+  static update() {
     return "TestResource.update() called."
   }
 
-  construct destroy() {
+  static destroy() {
     return "TestResource.destroy() called."
   }
 }
@@ -62,7 +62,8 @@ class Router {
         messageBody = fiber.error.toString
       }
     } else {
-
+      statusCode = "404"
+      messageBody = "Not Found"
     }
 
     var response = Response.new(statusCode, messageBody)

@@ -1,4 +1,4 @@
-import "router" for Router
+import "./router" for Router
 
 class Server {
   construct new() {

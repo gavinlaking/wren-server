@@ -11,6 +11,6 @@ fi
 while true; do
   netcat -lp 8080       0<backpipe |
   tee -a ../log/inflow             |
-  wren ../server.wren              |
+  wren_cli ../server.wren              |
   tee -a ../log/outflow 1>backpipe
 done

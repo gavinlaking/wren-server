@@ -1,39 +1,58 @@
 import "io" for Stdin
 
-import "lib/Recto/Recto" for Recto
+import "./lib/Recto/Recto" for Recto
+import "./parameters" for Parameters
 
 class Request {
+  body        { _requestBody }
   headers     { _requestHeaders }
   httpVersion { _requestHTTPVersion }
   method      { _requestMethod }
+  params      { _requestParams }
   queryString { _requestQueryString }
-  route       { method  + " " + uri }
+  route       { method + " " + uri }
   uri         { _requestUri }
 
   construct new() {
-    var crlf = 0
-    _requestHeaders = []
     var str = Recto.new()
 
-    while(crlf < 3) {
-      var line = Stdin.readLine()
-      _requestHeaders.add(line)
-      if (line.contains("\r")) { crlf = crlf + 1 }
-    }
-
-    var requestLine = _requestHeaders.removeAt(0)
+    var requestLine = Stdin.readLine()
     var requestAtoms = str.split(requestLine, " ")
 
-    _requestMethod = requestAtoms[0]
-    _requestHTTPVersion = requestAtoms[2]
+    _requestMethod      = requestAtoms[0]
+    _requestHTTPVersion = str.strip(requestAtoms[2])
 
-    var requestUriAtoms = str.split(requestAtoms[1], "?")
-    _requestUri = requestUriAtoms[0]
+    var uriAtoms = str.split(requestAtoms[1], "?")
+    _requestUri         = uriAtoms[0]
+    _requestQueryString = uriAtoms.count > 1 ? uriAtoms[1] : ""
 
-    if (requestUriAtoms.count > 1) {
-      _requestQueryString = requestUriAtoms[1]
-    } else {
-      _requestQueryString = ""
+    _requestHeaders = {}
+    while (true) {
+      var line = Stdin.readLine()
+      if (line == null || line == "\r" || line == "") break
+      var colonAt = line.indexOf(":")
+      if (colonAt > 0) {
+        var name  = str.lower(str.strip(line[0...colonAt]))
+        var value = str.strip(line[(colonAt + 1)...line.count])
+        _requestHeaders[name] = value
+      }
     }
+
+    _requestBody = ""
+    var contentLength = _requestHeaders["content-length"]
+    if (contentLength != null) {
+      var length = Num.fromString(contentLength)
+      if (length != null && length > 0) {
+        var body = []
+        for (i in 0...length) {
+          var byte = Stdin.readByte()
+          if (byte == -1) break
+          body.add(str.toChr(byte))
+        }
+        _requestBody = body.join()
+      }
+    }
+
+    _requestParams = Parameters.new(_requestBody, _requestHeaders["content-type"])
   }
 }

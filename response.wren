@@ -1,4 +1,4 @@
-import "status" for Status
+import "./status" for Status
 
 class Response {
   construct new(statusCode, messageBody) {
